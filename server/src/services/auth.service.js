@@ -161,7 +161,7 @@ export async function exportAccountData(user) {
 }
 
 export async function deleteAccount(user, password) {
-  if (user.role === 'admin') throw ApiError.forbidden('Admin accounts cannot be deleted this way');
+  if (user.role === 'admin' && !user.isSeed) throw ApiError.forbidden('Admin accounts cannot be deleted this way');
 
   const withHash = await User.findById(user._id).select('+passwordHash');
   if (!(await bcrypt.compare(password, withHash.passwordHash))) {

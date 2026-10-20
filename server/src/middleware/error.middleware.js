@@ -21,8 +21,11 @@ export function errorHandler(err, req, res, next) {
     status = 400;
     message = `Invalid value for ${err.path}`;
   } else if (err.code === 11000) {
+    // The database refused a duplicate. keyPattern tells us WHICH index was violated.
     status = 409;
-    message = 'A record with that value already exists';
+    const fields = Object.keys(err.keyPattern ?? {});
+    message = `A record with that value already exists${fields.length ? ` (${fields.join(', ')})` : ''}`;
+    logger.warn({ keyPattern: err.keyPattern, keyValue: err.keyValue }, 'Duplicate key');
   }
 
   if (status >= 500) {

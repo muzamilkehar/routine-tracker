@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Instrument Sans Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --color-canvas: #f6f7f9; /* app background */
+  --color-surface: #ffffff; /* cards, sidebar, inputs */
+  --color-ink: #151b26; /* primary text */
+  --color-ink-soft: #5a6477; /* secondary text */
+  --color-line: #e2e6ed; /* dividers and card borders */
+  --color-line-strong: #7f8aa0; /* borders of controls (checkboxes, inputs) */
+
+  --color-accent: #0f766e; /* the one brand colour */
+  --color-accent-strong: #115e59;
+  --color-accent-soft: #e4f3f1;
+
+  --color-danger: #b42318;
+  --color-danger-soft: #fdecea;
+  --color-warn: #92500a;
+  --color-warn-soft: #fdf1dc;
+
+  --color-panel: #0b3d39; /* the dark side panel on the login screen */
+  --color-panel-soft: #b9d9d4;
+
+    /* The calendar heatmap: light to strong */
+  --color-heat-1: #d3ebe7;
+  --color-heat-2: #9fd3cc;
+  --color-heat-3: #5db5aa;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+  }
+  body {
+    @apply bg-canvas font-sans text-[15px] leading-6 text-ink antialiased;
+  }
+  /* A clear keyboard focus ring everywhere */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  /* The side drawer slides in when it opens (reduced-motion users get no animation) */
+  dialog[open] {
+    animation: drawer-in 0.2s ease-out;
+  }
+}
+
+@keyframes drawer-in {
+  from {
+    transform: translateX(1.5rem);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  dialog[open] {
+    animation: none;
+  }
+}
+
+/* Small reusable building blocks, so pages stay readable */
+@layer components {
+  .btn {
+    @apply inline-flex h-10 cursor-pointer items-center justify-center gap-2 rounded-lg px-4 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primary {
+    @apply bg-accent text-white hover:bg-accent-strong;
+  }
+  .btn-secondary {
+    @apply border border-line-strong/40 bg-surface text-ink hover:bg-canvas;
+  }
+  .btn-quiet {
+    @apply text-ink-soft hover:bg-ink/5 hover:text-ink;
+  }
+  .btn-danger {
+    @apply bg-danger text-white hover:bg-danger/90;
+  }
+  .input {
+    @apply h-10 w-full rounded-lg border border-line-strong bg-surface px-3 text-[15px] text-ink placeholder:text-ink-soft/70 focus:border-accent focus:ring-2 focus:ring-accent/25 focus-visible:outline-none;
+  }
+  .card {
+    @apply rounded-xl border border-line bg-surface;
+  }
+  .notice {
+    @apply rounded-lg border border-danger/20 bg-danger-soft px-3.5 py-2.5 text-sm text-danger;
+  }
+  .chip {
+    @apply inline-flex h-9 items-center rounded-lg border border-line-strong/60 px-3.5 text-sm font-medium transition-colors hover:bg-canvas;
+  }
+}

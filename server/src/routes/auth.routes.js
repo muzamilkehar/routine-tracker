@@ -18,8 +18,8 @@ router.post('/register', authLimiter, validate(registerSchema), auth.register);
 router.post('/login', authLimiter, validate(loginSchema), auth.login);
 router.post('/refresh', auth.refresh);
 router.post('/logout', auth.logout);
-router.post('/verify-email', validate(verifyEmailSchema), auth.verifyEmail);
-router.post('/resend-verification', requireAuth, auth.resendVerification);
+router.post('/verify-email', authLimiter, validate(verifyEmailSchema), auth.verifyEmail);
+router.post('/resend-verification', authLimiter, requireAuth, auth.resendVerification); // limiter stops email spam
 router.post('/forgot-password', authLimiter, validate(forgotPasswordSchema), auth.forgotPassword);
 router.post('/reset-password', authLimiter, validate(resetPasswordSchema), auth.resetPassword);
 

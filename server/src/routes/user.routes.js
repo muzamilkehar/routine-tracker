@@ -13,4 +13,4 @@ router.patch('/me/password', validate(changePasswordSchema), user.changePassword
 router.get('/me/export', user.exportData);
 router.delete('/me', validate(deleteAccountSchema), user.deleteMe);
 
-export default router;
+export default router;  

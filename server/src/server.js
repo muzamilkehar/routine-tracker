@@ -25,7 +25,9 @@ async function start() {
 
 process.on('unhandledRejection', (reason) => {
   logger.error({ reason }, 'Unhandled promise rejection');
-  process.exit(1);
+  // In production, crash so the host restarts us cleanly. In development, keep running:
+  // `node --watch` does not restart a crashed server, and you would see "connection refused".
+  if (env.isProd) process.exit(1);
 });
 
 start().catch((err) => {

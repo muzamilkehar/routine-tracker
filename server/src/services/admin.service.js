@@ -36,6 +36,10 @@ export async function getUserDetail(id) {
 export async function updateUser(admin, id, changes) {
   if (String(admin._id) === id) throw ApiError.badRequest('You cannot change your own role or status');
 
+  const target = await User.findById(id);
+  if (!target) throw ApiError.notFound('User not found');
+  if (target.isSeed) throw ApiError.forbidden('The original admin account is protected and cannot be changed');
+
   const user = await User.findByIdAndUpdate(id, changes, { returnDocument: 'after', runValidators: true });
   if (!user) throw ApiError.notFound('User not found');
 
@@ -52,6 +56,7 @@ export async function deleteUser(admin, id) {
 
   const user = await User.findById(id);
   if (!user) throw ApiError.notFound('User not found');
+  if (user.isSeed) throw ApiError.forbidden('The original admin account is protected and cannot be deleted');
 
   await Promise.all([HabitLog.deleteMany({ user: id }), Habit.deleteMany({ user: id }), user.deleteOne()]);
   logger.info({ adminId: String(admin._id), targetId: id, email: user.email }, 'AUDIT: admin deleted user');

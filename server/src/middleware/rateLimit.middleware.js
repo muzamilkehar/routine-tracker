@@ -7,7 +7,8 @@ const createLimiter = (windowMs, limit, message) =>
     limit,
     standardHeaders: 'draft-7',
     legacyHeaders: false,
-    skip: () => env.nodeEnv === 'test',
+    // Skip entirely in tests AND development so debugging doesn't lock you out.
+    skip: () => env.nodeEnv !== 'production',
     message: { message },
   });
 

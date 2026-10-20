@@ -22,11 +22,13 @@ const admin = await User.findOneAndUpdate(
       role: 'admin',
       status: 'active',
       isEmailVerified: true,
+      isSeed: true,
       passwordHash: await bcrypt.hash(password, 12),
     },
   },
   { upsert: true, returnDocument: 'after', setDefaultsOnInsert: true, runValidators: true }
 );
 
+await User.updateMany({_id: {$ne: admin._id}, isSeed: true}, { $set: {isSeed: false}});
 console.log(`Admin ready: ${admin.email}`);
 await mongoose.disconnect();

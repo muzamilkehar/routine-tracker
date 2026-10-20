@@ -86,3 +86,20 @@ describe('habits and logs', () => {
     expect(res.status).toBe(404);
   });
 });
+
+  it('lets the same habit be logged on different days, and re-saving a day does not duplicate it', async () => {
+    const headers = await signup();
+    const { body } = await createHabit(headers, { title: 'Workout', startDate: addDays(today, -3) });
+    const put = (date, status) =>
+      request(app).put('/api/v1/logs').set(headers).send({ habitId: body.habit.id, date, status });
+
+    for (const date of [addDays(today, -2), addDays(today, -1), today]) {
+      expect((await put(date, 'done')).status).toBe(200);
+    }
+    expect((await put(today, 'missed')).status).toBe(200); // same day again: updates, no duplicate
+
+    const logs = await request(app)
+      .get(`/api/v1/logs?from=${addDays(today, -3)}&to=${today}`)
+      .set(headers);
+    expect(logs.body.logs).toHaveLength(3);
+  });

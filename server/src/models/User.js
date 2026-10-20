@@ -18,6 +18,7 @@ const userSchema = new Schema(
     status: { type: String, enum: ['active', 'suspended'], default: 'active' },
     timezone: { type: String, default: 'UTC' },
     isEmailVerified: { type: Boolean, default: false },
+    isSeed: { type: Boolean, default: false },
     emailVerificationTokenHash: { type: String, select: false },
     passwordResetTokenHash: { type: String, select: false },
     passwordResetExpires: { type: Date, select: false },
