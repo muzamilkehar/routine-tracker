@@ -2,14 +2,71 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0f766e" />
-    <meta name="description" content="Track your daily habits and routine, and see your streaks and monthly progress." />
-    <title>Routine Tracker</title>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href="https://routine-tracker-pearl.vercel.app/" />
+
+    <!-- Primary SEO -->
+    <title>Routine Tracker – Free Daily Habit Tracker &amp; Routine Planner</title>
+    <meta
+      name="description"
+      content="Routine Tracker is a free daily habit tracker. Build good habits, check off your daily tasks, keep your streaks and see your monthly progress in one simple place."
+    />
+    <meta
+      name="keywords"
+      content="routine tracker, daily habit tracker, habit tracker online, daily routine planner, free habit tracker, streak tracker, daily task tracker, monthly progress tracker, build good habits, productivity tracker"
+    />
+    <meta name="author" content="Muzamil Ali Kehar" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph (WhatsApp, Facebook, LinkedIn previews) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Routine Tracker" />
+    <meta property="og:title" content="Routine Tracker – Free Daily Habit Tracker" />
+    <meta
+      property="og:description"
+      content="Build good habits, keep your streaks and see your monthly progress with a simple, free daily routine tracker."
+    />
+    <meta property="og:url" content="https://routine-tracker-pearl.vercel.app/" />
+    <meta property="og:image" content="https://routine-tracker-pearl.vercel.app/og-image.png" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Routine Tracker – Free Daily Habit Tracker" />
+    <meta
+      name="twitter:description"
+      content="Build good habits, keep your streaks and see your monthly progress."
+    />
+    <meta name="twitter:image" content="https://routine-tracker-pearl.vercel.app/og-image.png" />
+
+    <!-- Structured data so Google understands what the site is -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Routine Tracker",
+        "url": "https://routine-tracker-pearl.vercel.app/",
+        "description": "A free daily habit and routine tracker with streaks and monthly progress.",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Shown only if JavaScript is off; also gives crawlers readable text -->
+    <noscript>
+      <h1>Routine Tracker – Daily Habit Tracker</h1>
+      <p>
+        Track your daily routine, build good habits, keep your streaks and see
+        your monthly progress. Please enable JavaScript to use the app.
+      </p>
+    </noscript>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
