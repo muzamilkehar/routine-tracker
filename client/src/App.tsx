@@ -11,6 +11,7 @@ import { ResetPasswordPage } from './pages/ResetPasswordPage'
 import { SettingsPage } from './pages/SettingsPage'
 import { TodayPage } from './pages/TodayPage'
 import { VerifyEmailPage } from './pages/VerifyEmailPage'
+import { useDocumentTitle } from './hooks/useDocumentTitle'
 
 // The Progress page (with the chart library) is only downloaded when someone opens it
 const ProgressPage = lazy(() => import('./pages/ProgressPage'))
@@ -29,6 +30,7 @@ function NotFoundPage() {
 }
 
 export default function App() {
+  useDocumentTitle()
   return (
     <Routes>
       {/* Only for visitors who are NOT logged in */}
